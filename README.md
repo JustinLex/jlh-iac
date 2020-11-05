@@ -11,5 +11,5 @@ Must have terraform installed, as well as the
     * The target Proxmox API endpoint
 * PM_USER
     * The username for Proxmox, typically `root@pam`.
-* PM_PASSWORD
+* PM_PASS
     * The password for Proxmox
