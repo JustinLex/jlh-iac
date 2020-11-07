@@ -14,23 +14,35 @@ provider "proxmox" {
   pm_tls_insecure = true
 }
 
+data "local_file" "public_key" {
+  filename = "/home/jlh/.ssh/id_rsa.pub"
+}
+
 resource "proxmox_lxc" "swablu" {
-  hostname = "swablu"
+  target_node     = "pve"
+  vmid            = 200
+  hostname        = "swablu"
+  unprivileged    = true
+  ssh_public_keys = data.local_file.public_key.content
+
+  ostemplate = "local:vztmpl/ubuntu-20.04-standard_20.04-1_amd64.tar.gz"
+
+  storage = "local-zfs"
+
+  memory = 2048
+  swap   = 0
+
   network {
     name   = "eth0"
     bridge = "vmbr0"
     ip     = "dhcp"
     ip6    = "dhcp"
   }
-  ostemplate   = "local:vztmpl/centos-8-default_20191016_amd64.tar.xz"
-  password     = "rootroot"
-  storage      = "local-zfs"
-  unprivileged = true
-  target_node  = "pve"
-  vmid         = 200
-  description  = "Testing terraform"
+  lifecycle {
+    ignore_changes = [
+      network,
+    ]
+  }
 
-
-  #preprovision = true
-  #os_type= "centos"
+  description = "Testing terraform"
 }
