@@ -18,6 +18,7 @@ Must have terraform installed, as well as the
 ### Terraform
 ```shell script
 terraform init
+terraform fmt
 PM_PASS='SECRET' terraform validate
 rm terraform.tfstate
 PM_PASS='SECRET' terraform apply
@@ -26,4 +27,8 @@ PM_PASS='SECRET' terraform apply
 ```shell script
 ansible -i ansible_hosts.ini swablu -m ping
 ansible-playbook -i ansible_hosts.ini site.yml
+```
+### misc
+```shell script
+ssh-keygen -R "swablu.home.jlh.name"
 ```

@@ -8,3 +8,8 @@
   hosts: webservers
   roles:
     - nginx
+
+- name: Install and configure nextcloud
+  hosts: swablu
+  roles:
+    - nextcloud

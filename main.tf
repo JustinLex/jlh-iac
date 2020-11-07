@@ -44,5 +44,7 @@ resource "proxmox_lxc" "swablu" {
     ]
   }
 
+  onboot      = true
+  start       = true
   description = "Testing terraform"
 }

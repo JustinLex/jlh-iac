@@ -1,0 +1,44 @@
+- name: install dependencies
+  apt:
+    name:
+
+      # misc stuff from nextcloud playbook repo
+      - zip
+      - unzip
+      - bzip2
+      - software-properties-common
+      - facter
+      - lsb-release
+      - ssl-cert
+      - ca-certificates
+      - apt-transport-https
+
+      # redis
+      - redis-server
+
+      # php
+      - php{{ php_version }}
+      - php{{ php_version }}-cli
+      - php{{ php_version }}-fpm
+      - php{{ php_version }}-curl
+      - php{{ php_version }}-common
+      - php{{ php_version }}-gd
+      - php{{ php_version }}-json
+      - php{{ php_version }}-mbstring
+      - php{{ php_version }}-xml
+      - php{{ php_version }}-intl
+      - php{{ php_version }}-bcmath
+      - php{{ php_version }}-gmp
+      - php-apcu
+      - php-redis
+      - php-imagick
+      - php{{ php_version }}-bz2
+      - php{{ php_version }}-zip
+      - php{{ php_version }}-pgsql
+      - php-pear
+
+      # nfs
+      - nfs-common
+    state: present
+
+#- name: Mount NFS share

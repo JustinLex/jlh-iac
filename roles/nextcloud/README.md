@@ -1,0 +1,1 @@
+The nextcloud role is based off of ansible code from https://github.com/ReinerNippes/nextcloud
