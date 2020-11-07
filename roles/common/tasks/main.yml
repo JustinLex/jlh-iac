@@ -1,0 +1,15 @@
+---
+- name: Update software
+  apt:
+    upgrade: safe
+    autoremove: yes
+
+- name: Install common tools
+  apt:
+    name: htop
+    state: present
+  become: true
+
+- name: Clean package cache
+  apt:
+    autoclean: yes

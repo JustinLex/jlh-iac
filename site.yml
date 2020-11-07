@@ -1,0 +1,10 @@
+---
+- name: Install common tools and run common tasks
+  hosts: all
+  roles:
+    - common
+
+- name: Install and configure nginx
+  hosts: webservers
+  roles:
+    - nginx
