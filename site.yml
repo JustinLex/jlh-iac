@@ -1,6 +1,6 @@
 ---
 - name: Install common tools and run common tasks
-  hosts: all
+  hosts: containers
   roles:
     - common
 
