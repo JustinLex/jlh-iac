@@ -1,0 +1,35 @@
+---
+
+- name: Create swablu
+  community.general.proxmox:
+    api_host: 'shodan.home.jlh.name'
+    api_user: 'root@pam'
+    vmid: '200'
+    node: 'pve'
+    hostname: 'swablu'
+    unprivileged: yes
+    pubkey: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC+MxrP4M1yokRtDIKEmkmFqaRpGKoRYvtndSJGF0eRiLnhpJQNmIBB3DKLAyvigANFJNkQAsUeyXlWAsn8sx4z5Qowp2Ehtft/g4J0PIf/tXz6J7nSAnpwkJx/pNVBXanj4Haa2zzENO/JATIscd52Jh7/k4e14w/5zE+f7rwpsC/SVQTP5fz1G43lJoNIa7X+nw6pFyq8ajeJ/AwIgVeGn44g41M4uBhw4yYXhRE9QlnmuE/yZtwjaRnHnJO9Ojb36d/4bQijEc5mn9vMneI8/i5cw+uLoIH/grLEM4y4WBulyu6S+BK/Esc8nYeYTOoaIo5wIOI5fp4vwTcNDpom6ODfsXLC0mvhCsP0cknaPegct3wDQwtRynAFx8EjtqS53O5rCHzCP4tQIotcLpQZECjUbdWc3VfuoZVBBzfVu1o6UjV38HBbBHEt1qEXTBzroVx4sZFvDLa/jqsZb8f8KfNGQcIfmE5Hp3CoY6Sbtc0rVsGD0Y2R/U7U8ayXptjbczF+Kk/gIbOA7DaEtLNIU+q11z1o54un/suUpfvO+tAjFiMDOfYWaeuj9rMfEAKeTySki1vzuhtVdQDC6yfJ5RgH1S9++1djj84N2OIkwj7yYpayjW2jagqlQtnXg61W5VAFJ9QGnK6FLBpOL1UGhyQ4FAo+6ddD0Y8vGTFumw== jlh@citrus'
+
+    ostemplate: "local:vztmpl/ubuntu-20.04-standard_20.04-1_amd64.tar.gz"
+
+    mounts: '{"mp0":"/mnt/pve/nextcloud,mp=/mnt/nextcloud"}'
+
+    storage: "local-zfs"
+
+    cpus: 4
+
+    memory: 2048
+    swap: 0
+
+    netif: '{"net1": "name=eth0,bridge=vmbr0,ip=dhcp,ip6=dhcp"}'
+
+    onboot: yes
+    state: "present"
+    description: "Testing Ansible"
+
+- name: Start swablu
+  community.general.proxmox:
+    api_host: 'shodan.home.jlh.name'
+    api_user: 'root@pam'
+    vmid: '200'
+    state: "started"

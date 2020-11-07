@@ -1,4 +1,14 @@
 ---
+- name: Set up NFS mounts for containers
+  hosts: proxmox_nodes
+  roles:
+    - nfs_mount
+
+- name: Create VMs and containers
+  hosts: localhost
+  roles:
+    - create_containers
+
 - name: Install common tools and run common tasks
   hosts: containers
   roles:

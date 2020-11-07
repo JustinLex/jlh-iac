@@ -1,0 +1,9 @@
+---
+
+- name: Mount nfs shares
+  mount:
+    fstype: nfs
+    src: freenas.home.jlh.name:/mnt/water/nextcloud
+    path: /mnt/pve/nextcloud
+    state: mounted
+
