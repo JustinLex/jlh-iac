@@ -2,6 +2,7 @@
 
 - name: Create swablu
   community.general.proxmox:
+    proxmox_default_behavior: no_defaults
     api_host: "{{ pve_fqdn }}"
     api_user: "{{ pve_user }}"
     vmid: "{{ proxmox_vmid }}"
@@ -14,9 +15,8 @@
 
     mounts: "{{ proxmox_mounts }}"
 
+    disk: "8"
     storage: "local-zfs"
-
-    cpus: 4
 
     memory: "{{ proxmox_memory }}"
     swap: 0
@@ -37,6 +37,7 @@
         state: absent
     - name: Start container
       community.general.proxmox:
+        proxmox_default_behavior: no_defaults
         api_host: "{{ pve_fqdn }}"
         api_user: "{{ pve_user }}"
         vmid: "{{ proxmox_vmid }}"
