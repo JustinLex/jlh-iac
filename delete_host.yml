@@ -1,0 +1,27 @@
+---
+- hosts: localhost
+  vars_prompt:
+    - name: vmid
+      prompt: Enter VMID to delete
+      private: no
+
+    - name: vmid2
+      prompt: Enter again to confirm
+      private: no
+
+  tasks:
+    - name: stop and delete
+      block:
+        - name: stop container
+          community.general.proxmox:
+            api_host: 'shodan.home.jlh.name'
+            api_user: 'root@pam'
+            vmid: "{{ vmid }}"
+            state: "stopped"
+        - name: delete container
+          community.general.proxmox:
+            api_host: 'shodan.home.jlh.name'
+            api_user: 'root@pam'
+            vmid: "{{ vmid }}"
+            state: "absent"
+      when: vmid == vmid2
