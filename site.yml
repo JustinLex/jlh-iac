@@ -5,7 +5,8 @@
     - nfs_mount
 
 - name: Create VMs and containers
-  hosts: localhost
+  hosts: containers
+  gather_facts: no
   roles:
     - create_containers
 

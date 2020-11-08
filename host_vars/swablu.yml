@@ -1,9 +1,9 @@
 hostname: "swablu"
 fqdn: "{{hostname}}.home.jlh.name"
-vmid: "200"
-unprivileged: yes
-mounts: '{"mp0":"/mnt/pve/nextcloud,mp=/mnt/nextcloud"}'
-memory: 2048
-description: Nextcloud host
+proxmox_vmid: "200"
+proxmox_unprivileged: yes
+proxmox_mounts: '{"mp0":"/mnt/pve/nextcloud,mp=/mnt/nextcloud"}'
+proxmox_memory: 2048
+proxmox_description: Nextcloud host
 
 ansible_host: "{{fqdn}}"
