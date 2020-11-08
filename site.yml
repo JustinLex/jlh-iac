@@ -19,3 +19,8 @@
   hosts: swablu
   roles:
     - nextcloud
+
+- name: Install and configure postgres
+  hosts: magneton
+  roles:
+    - postgres
