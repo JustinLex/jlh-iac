@@ -114,7 +114,7 @@
 - name: Install Nextcloud
   unarchive:
     src: /nextcloud.tar.bz2
-    dest: /mnt/nextcloud/www/nextcloud
+    dest: /mnt/nextcloud/www
     remote_src: true
     owner: "www-data"
     group: "www-data"
