@@ -29,13 +29,9 @@
   delegate_to: localhost
   register: container_present
 
-- name: Start container and update host keys
+- name: Start container and update host key
   block:
-    - name: Purge SSH host keys for container hostname
-      known_hosts:
-        name: 'swablu'
-        state: absent
-    - name: Purge SSH host keys for container FQDN
+    - name: Purge SSH host key for container
       known_hosts:
         name: 'swablu.home.jlh.name'
         state: absent

@@ -1,0 +1,18 @@
+all:
+  children:
+    proxmox_nodes:
+      hosts:
+        shodan:
+          ansible_host: shodan.home.jlh.name
+      vars:
+        ansible_user: root
+    containers:
+      hosts:
+        swablu:
+      vars:
+        ansible_user: root
+#    vms:
+#      hosts:
+    webservers:
+      hosts:
+        swablu:

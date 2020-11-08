@@ -15,20 +15,7 @@ Must have terraform installed, as well as the
     * The password for Proxmox
 
 ## Useful commands
-### Terraform
 ```shell script
-terraform init
-terraform fmt
-PM_PASS='SECRET' terraform validate
-rm terraform.tfstate
-PM_PASS='SECRET' terraform apply
-```
-### Ansible
-```shell script
-ansible -i ansible_hosts.ini swablu -m ping
-ansible-playbook -i ansible_hosts.ini site.yml
-```
-### misc
-```shell script
-ssh-keygen -R "swablu.home.jlh.name"
+ansible -i inventory.yml swablu -m ping
+PROXMOX_PASSWORD=secret ansible-playbook -i inventory.yml site.yml
 ```
