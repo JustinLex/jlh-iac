@@ -1,4 +1,4 @@
-- name: install dependencies
+- name: Install dependencies
   apt:
     name:
 
@@ -12,6 +12,11 @@
       - ssl-cert
       - ca-certificates
       - apt-transport-https
+      - gnupg2
+      - ffmpeg
+      - imagemagick
+      - ghostscript
+      - libfile-fcntllock-perl
 
       # redis
       - redis-server
@@ -41,4 +46,87 @@
       - nfs-common
     state: present
 
-#- name: Mount NFS share
+# Webserver config
+- name: Install nginx.conf
+  template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/nginx.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart nginx
+
+- name: Install PHP configuration
+  copy:
+    src: "php/{{ item }}"
+    dest: "/etc/php/{{ php_version }}/{{ item }}"
+    owner: root
+    group: root
+    mode: 0644
+  loop:
+    - 'fpm/php.ini'
+    - 'cli/php.ini'
+  notify: restart php-fpm
+
+- name: Install php-fpm.ini
+  template:
+    src: php-fpm.conf.j2
+    dest: /etc/php/{{ php_version }}/fpm/php-fpm.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart php-fpm
+
+- name: Install cli/php.ini
+  template:
+    src: poolwww.conf.j2
+    dest: /etc/php/{{ php_version }}/fpm/pool.d/www.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart php-fpm
+
+# apply some fixes from nextcloud playbook repo
+- name: Create symbolic link to /usr/bin/gs
+  file:
+    src:  /usr/bin/gs
+    dest: /usr/local/bin/gs
+    state: link
+
+- name: Change ImageMagick settings
+  lineinfile:
+    path:   /etc/ImageMagick-6/policy.xml
+    line:   '  <policy domain="coder" rights="read|write" pattern="{{ item }}" />'
+    regexp: '(.*)<policy domain="coder" rights="(.*)" pattern="{{ item }}" />(.*)'
+    insertbefore: '</policymap>'
+  loop:
+    - PS
+    - EPI
+    - PDF
+    - XPS
+
+# Install Nextcloud
+- name: Download Nextcloud archive
+  get_url:
+    url:  "https://download.nextcloud.com/server/releases/nextcloud-20.0.1.tar.bz2"
+    dest: /nextcloud.tar.bz2
+    checksum: "sha256:https://download.nextcloud.com/server/releases/nextcloud-20.0.1.tar.bz2.sha256"
+  register: nextcloud_archive
+
+- name: Install Nextcloud
+  unarchive:
+    src: /nextcloud.tar.bz2
+    dest: /var/www
+    remote_src: true
+    owner: "www-data"
+    group: "www-data"
+    mode:  "o-rwx"
+  when: nextcloud_archive.changed
+
+# Configure cron
+- name: Add nextcloud cronjob
+  cron:
+    name: nextcloud cronjob
+    minute: '*/15'
+    user: "www-data"
+    job: "php -f /var/www/nextcloud/cron.php > /dev/null 2>&1"
