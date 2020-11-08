@@ -1,9 +1,16 @@
 ---
 
-- name: Mount nfs shares
+- name: Mount nextcloud share
   mount:
     fstype: nfs
     src: freenas.home.jlh.name:/mnt/water/nextcloud
     path: /mnt/pve/nextcloud
+    state: mounted
+
+- name: Mount database share
+  mount:
+    fstype: nfs
+    src: freenas.home.jlh.name:/mnt/water/database
+    path: /mnt/pve/database
     state: mounted
 

@@ -1,0 +1,9 @@
+hostname: "magneton"
+fqdn: "{{hostname}}.home.jlh.name"
+proxmox_vmid: "201"
+proxmox_unprivileged: yes
+proxmox_mounts: '{"mp0":"/mnt/pve/database,mp=/mnt/database"}'
+proxmox_memory: 4096
+proxmox_description: Postgresql host
+
+ansible_host: "{{fqdn}}"

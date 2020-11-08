@@ -9,6 +9,7 @@ all:
     containers:
       hosts:
         swablu:
+        magneton:
       vars:
         ansible_user: root
 #    vms:
