@@ -1,6 +1,7 @@
 - name: Install dependencies
   apt:
     name:
+      - nginx
 
       # misc stuff from nextcloud playbook repo
       - zip
