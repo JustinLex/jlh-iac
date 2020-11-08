@@ -1,0 +1,9 @@
+hostname: "hitmonleee"
+fqdn: "{{hostname}}.home.jlh.name"
+proxmox_vmid: "202"
+proxmox_unprivileged: yes
+proxmox_mounts:
+proxmox_memory: 4096
+proxmox_description: Smultron Feet host
+
+ansible_host: "{{fqdn}}"
