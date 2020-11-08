@@ -2,8 +2,8 @@
 
 - name: Create swablu
   community.general.proxmox:
-    api_host: 'shodan.home.jlh.name'
-    api_user: 'root@pam'
+    api_host: "{{ pve_fqdn }}"
+    api_user: "{{ pve_user }}"
     vmid: '200'
     node: 'pve'
     hostname: 'swablu'
@@ -33,3 +33,6 @@
     api_user: 'root@pam'
     vmid: '200'
     state: "started"
+
+    #TODO: Wait for instance to start
+    #TODO: purge hostname and fqdn ssh keys
