@@ -1,6 +1,6 @@
 ---
 
-- name: Create swablu
+- name: Create containers
   community.general.proxmox:
     proxmox_default_behavior: no_defaults
     api_host: "{{ pve_fqdn }}"

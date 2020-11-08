@@ -1,4 +1,4 @@
-hostname: "hitmonleee"
+hostname: "hitmonlee"
 fqdn: "{{hostname}}.home.jlh.name"
 proxmox_vmid: "202"
 proxmox_unprivileged: yes

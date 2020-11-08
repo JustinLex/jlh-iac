@@ -24,3 +24,8 @@
   hosts: magneton
   roles:
     - postgres
+
+- name: Set up smultronfeet.nu
+  hosts: hitmonlee
+  roles:
+    - smultron_feet

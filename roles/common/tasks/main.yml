@@ -6,7 +6,10 @@
 
 - name: Install common tools
   apt:
-    name: htop
+    name:
+      - htop
+      - gpg
+      - git
     state: present
   become: true
 

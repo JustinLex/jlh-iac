@@ -1,0 +1,44 @@
+---
+
+- name: Install nginx and npm
+  apt:
+    name:
+      - npm
+      - nginx
+    state: present
+
+- name: Configure nginx
+  copy:
+    src: smultronfeet-nu.conf
+    dest: /etc/nginx/sites-enabled/smultronfeet-nu.conf
+  register: nginx_conf
+
+- name: Restart nginx
+  systemd:
+    name: "nginx"
+    state: restarted
+  when: nginx_conf.changed
+
+- name: Checkout smultronfeet-nu repo
+  git:
+    repo: https://github.com/JustinLex/smultronfeet-nu.git
+    dest: /root/smultronfeet-nu
+    depth: 1
+
+- name: Install smultronfeet.nu deps
+  command:
+    chdir: /root/smultronfeet-nu
+    cmd: npm install
+
+- name: Build smultronfeet.nu
+  command:
+    chdir: /root/smultronfeet-nu
+    cmd: npm run build
+
+- name: Deploy smultronfeet.nu
+  copy:
+    src: /root/smultronfeet-nu/build/
+    dest: /var/www/smultronfeet.nu
+    remote_src: yes
+    owner: www-data
+    group: www-data
