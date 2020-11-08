@@ -41,9 +41,6 @@
       - php{{ php_version }}-zip
       - php{{ php_version }}-pgsql
       - php-pear
-
-      # nfs
-      - nfs-common
     state: present
 
 # Webserver config
@@ -116,7 +113,7 @@
 - name: Install Nextcloud
   unarchive:
     src: /nextcloud.tar.bz2
-    dest: /var/www
+    dest: /mnt/nextcloud/www/nextcloud
     remote_src: true
     owner: "www-data"
     group: "www-data"
@@ -129,4 +126,4 @@
     name: nextcloud cronjob
     minute: '*/15'
     user: "www-data"
-    job: "php -f /var/www/nextcloud/cron.php > /dev/null 2>&1"
+    job: "php -f /mnt/nextcloud/www/nextcloud/cron.php > /dev/null 2>&1"
