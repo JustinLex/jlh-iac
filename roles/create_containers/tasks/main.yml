@@ -27,23 +27,33 @@
     state: "present"
     description: "Testing Ansible"
   delegate_to: localhost
+  register: container_present
 
-- name: Start swablu
-  community.general.proxmox:
-    api_host: 'shodan.home.jlh.name'
-    api_user: 'root@pam'
-    vmid: '200'
-    state: "started"
+- name: Start container and update host keys
+  block:
+    - name: Purge SSH host keys for container hostname
+      known_hosts:
+        name: 'swablu'
+        state: absent
+    - name: Purge SSH host keys for container FQDN
+      known_hosts:
+        name: 'swablu.home.jlh.name'
+        state: absent
+    - name: Start container
+      community.general.proxmox:
+        api_host: "{{ pve_fqdn }}"
+        api_user: "{{ pve_user }}"
+        vmid: '200'
+        state: "started"
+    - name: Wait for container to start
+      wait_for:
+        host: "swablu.home.jlh.name"
+        port: 22
+        search_regex: "OpenSSH"
+        delay: 2
+    - name: Add new host key
+      shell: ssh-keyscan swablu.home.jlh.name >> ~/.ssh/known_hosts
+  when: container_present.changed
   delegate_to: localhost
 
-- name: Wait for container to start
-  wait_for:
-    host: "swablu.home.jlh.name"
-    port: 22
-    search_regex: "OpenSSH"
-    delay: 2
-  delegate_to: localhost
-
-    # TODO: purge hostname and fqdn ssh keys
-    # TODO: Move purge, start, and wait to a handler
     # TODO: Run task on inventory, with task delegated to localhost
