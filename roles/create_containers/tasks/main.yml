@@ -26,6 +26,7 @@
     onboot: yes
     state: "present"
     description: "Testing Ansible"
+  delegate_to: localhost
 
 - name: Start swablu
   community.general.proxmox:
@@ -33,6 +34,16 @@
     api_user: 'root@pam'
     vmid: '200'
     state: "started"
+  delegate_to: localhost
 
-    #TODO: Wait for instance to start
-    #TODO: purge hostname and fqdn ssh keys
+- name: Wait for container to start
+  wait_for:
+    host: "swablu.home.jlh.name"
+    port: 22
+    search_regex: "OpenSSH"
+    delay: 2
+  delegate_to: localhost
+
+    # TODO: purge hostname and fqdn ssh keys
+    # TODO: Move purge, start, and wait to a handler
+    # TODO: Run task on inventory, with task delegated to localhost
