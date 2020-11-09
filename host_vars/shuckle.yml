@@ -1,0 +1,9 @@
+hostname: "shuckle"
+fqdn: "{{hostname}}.home.jlh.name"
+proxmox_vmid: "203"
+proxmox_unprivileged: yes
+proxmox_mounts: '{"mp0":"/mnt/pve/acme-certs/shuckle,mp=/mnt/certs"}'
+proxmox_memory: 1024
+proxmox_description: Web-facing reverse proxy
+
+ansible_host: "{{fqdn}}"

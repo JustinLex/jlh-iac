@@ -11,7 +11,7 @@ all:
         swablu:
         magneton:
         hitmonlee:
+        shuckle:
+        jirachi:
       vars:
         ansible_user: root
-#    vms:
-#      hosts:

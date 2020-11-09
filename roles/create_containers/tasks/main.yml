@@ -31,6 +31,10 @@
 
 - name: Start container and update host key
   block:
+    - name: Run extra container setup
+      shell: "{{ proxmox_script }}"
+      delegate_to: shodan
+      when: proxmox_script is defined
     - name: Purge SSH host key for container
       known_hosts:
         name: "{{ fqdn }}"

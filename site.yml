@@ -29,3 +29,16 @@
   hosts: hitmonlee
   roles:
     - smultron_feet
+
+- name: Install and configure nginx reverse-proxy
+  hosts: shuckle
+  roles:
+    - nginx_proxy
+
+- name: Install and configure certbot
+  hosts: jirachi
+  roles:
+    - certbot
+
+# TODO: Set up a play that runs a specific role for each host, with the free strategy, allowing for parallelism
+

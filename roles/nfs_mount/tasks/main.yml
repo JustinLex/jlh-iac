@@ -14,3 +14,10 @@
     path: /mnt/pve/database
     state: mounted
 
+- name: Mount certificate share
+  mount:
+    fstype: nfs
+    src: freenas.home.jlh.name:/mnt/water/acme-certs
+    path: /mnt/pve/acme-certs
+    state: mounted
+

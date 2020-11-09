@@ -1,0 +1,45 @@
+- name: Install dependencies
+  apt:
+    name:
+      - nginx
+    state: present
+
+# Webserver config
+#- name: Install nginx.conf
+#  template:
+#    src: nginx.conf.j2
+#    dest: /etc/nginx/nginx.conf
+#    owner: root
+#    group: root
+#    mode: 0644
+#  notify: restart nginx
+#
+#- name: Install PHP configuration
+#  copy:
+#    src: "php/{{ item }}"
+#    dest: "/etc/php/{{ php_version }}/{{ item }}"
+#    owner: root
+#    group: root
+#    mode: 0644
+#  loop:
+#    - 'fpm/php.ini'
+#    - 'cli/php.ini'
+#  notify: restart php-fpm
+#
+#- name: Install php-fpm.ini
+#  template:
+#    src: php-fpm.conf.j2
+#    dest: /etc/php/{{ php_version }}/fpm/php-fpm.conf
+#    owner: root
+#    group: root
+#    mode: 0644
+#  notify: restart php-fpm
+#
+#- name: Install cli/php.ini
+#  template:
+#    src: poolwww.conf.j2
+#    dest: /etc/php/{{ php_version }}/fpm/pool.d/www.conf
+#    owner: root
+#    group: root
+#    mode: 0644
+#  notify: restart php-fpm
