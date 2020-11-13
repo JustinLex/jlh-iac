@@ -1,0 +1,5 @@
+{% if proxmox_mac_address is defined %}
+{"net1": "name=eth0,hwaddr={{ proxmox_mac_address }},bridge=vmbr0,ip=dhcp,ip6=dhcp"}
+{% else %}
+{"net1": "name=eth0,bridge=vmbr0,ip=dhcp,ip6=dhcp"}
+{% endif %}

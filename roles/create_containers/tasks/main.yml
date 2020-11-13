@@ -21,7 +21,8 @@
     memory: "{{ proxmox_memory }}"
     swap: 0
 
-    netif: '{"net1": "name=eth0,bridge=vmbr0,ip=dhcp,ip6=dhcp"}'
+    # Use the template in ./templates/netif.j2 to format the netif string
+    netif: "{{ lookup('template', './templates/netif.j2') }}"
 
     onboot: yes
     state: "present"

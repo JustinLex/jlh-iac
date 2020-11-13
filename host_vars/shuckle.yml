@@ -5,5 +5,6 @@ proxmox_unprivileged: yes
 proxmox_mounts: '{"mp0":"/mnt/pve/acme-certs/,mp=/etc/letsencrypt"}'
 proxmox_memory: 1024
 proxmox_description: Web-facing reverse proxy
+proxmox_mac_address: '26:3B:A4:52:CC:28'
 
 ansible_host: "{{fqdn}}"
