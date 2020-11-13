@@ -40,7 +40,7 @@ http {
     server {
         listen 80;
         listen [::]:80;
-        server_name cloud.jlh.name;
+        server_name {{ fqdn }};
 
         # set max upload size
         client_max_body_size 102400M;

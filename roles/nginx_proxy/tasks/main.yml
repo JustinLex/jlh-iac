@@ -16,8 +16,29 @@
       cert_name: "smultronfeet.nu"
       proxy_pass: "http://{{ hostvars['hitmonlee']['fqdn'] }}/"
       location_block: "./templates/proxy.j2"
+    - server_name: "cloud.jlh.name"
+      cert_name: "jlh.name"
+      proxy_pass: "http://{{ hostvars['swablu']['fqdn'] }}/"
+      location_block: "./templates/proxy.j2"
     - server_name: "pve.jlh.name"
       cert_name: "jlh.name"
       proxy_pass: "https://10.0.0.2:8006/"
       location_block: "./templates/pve_websocket_proxy.j2"
   notify: restart nginx
+
+- name: Remove nginx default server conf
+  file:
+    path: "/etc/nginx/sites-enabled/default"
+    state: absent
+  notify: restart nginx
+
+- name: Add my default server conf to nginx
+  copy:
+    src: default_server.conf
+    dest: "/etc/nginx/conf.d/default_server.conf"
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart nginx
+
+
