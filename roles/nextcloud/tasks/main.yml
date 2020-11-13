@@ -116,8 +116,6 @@
     src: /nextcloud.tar.bz2
     dest: /mnt/nextcloud/www
     remote_src: true
-    owner: "www-data"
-    group: "www-data"
     mode:  "o-rwx"
   when: nextcloud_archive.changed
 

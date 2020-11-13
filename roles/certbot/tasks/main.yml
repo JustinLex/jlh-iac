@@ -19,48 +19,38 @@
     classic: yes
     state: present
 
-#- name: Add certbot to PATH
-#    file:
-#      src: "{{ apache_server_root[ansible_os_family] }}/conf-available/letsencrypt.conf"
-#      dest: "{{ apache_server_root[ansible_os_family] }}/conf-enabled/letsencrypt.conf"
-#      state: link
+- name: Add certbot to PATH
+  file:
+    src: "/snap/bin/certbot"
+    dest: "/usr/bin/certbot"
+    state: link
 
-# Webserver config
-#- name: Install nginx.conf
-#  template:
-#    src: nginx.conf.j2
-#    dest: /etc/nginx/nginx.conf
-#    owner: root
-#    group: root
-#    mode: 0644
-#  notify: restart nginx
-#
-#- name: Install PHP configuration
-#  copy:
-#    src: "php/{{ item }}"
-#    dest: "/etc/php/{{ php_version }}/{{ item }}"
-#    owner: root
-#    group: root
-#    mode: 0644
-#  loop:
-#    - 'fpm/php.ini'
-#    - 'cli/php.ini'
-#  notify: restart php-fpm
-#
-#- name: Install php-fpm.ini
-#  template:
-#    src: php-fpm.conf.j2
-#    dest: /etc/php/{{ php_version }}/fpm/php-fpm.conf
-#    owner: root
-#    group: root
-#    mode: 0644
-#  notify: restart php-fpm
-#
-#- name: Install cli/php.ini
-#  template:
-#    src: poolwww.conf.j2
-#    dest: /etc/php/{{ php_version }}/fpm/pool.d/www.conf
-#    owner: root
-#    group: root
-#    mode: 0644
-#  notify: restart php-fpm
+- name: Enable certbot plugins
+  command: snap set certbot trust-plugin-with-root=ok
+  changed_when: False
+
+- name: Install Cloudflare certbot plugin
+  community.general.snap:
+    name: certbot-dns-cloudflare
+    classic: yes
+    state: present
+
+- name: Configure cloudflare plugin
+  copy:
+    content: "dns_cloudflare_api_token = {{ cloudflare_api_key }}"
+    dest: /root/cloudflare.ini
+    owner: root
+    group: root
+    mode: "600"
+
+- name: Generate new certs
+  command:
+    cmd: "/snap/bin/certbot certonly -n --agree-tos -m mail@jlh.name \
+--dns-cloudflare --dns-cloudflare-credentials /root/cloudflare.ini \
+-d {{ item.domain }} {{ item.alts }}"
+    creates: "/etc/letsencrypt/live/{{ item.domain }}/fullchain.pem"
+  loop:
+    - domain: 'jlh.name'
+      alts: '-d *.jlh.name'
+    - domain: 'smultronfeet.nu'
+      alts: ''

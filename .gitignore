@@ -1,0 +1,2 @@
+# Dont checkin cloudflare API key
+roles/certbot/vars/main.yml

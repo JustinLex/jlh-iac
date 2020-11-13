@@ -2,7 +2,7 @@ hostname: "jirachi"
 fqdn: "{{hostname}}.home.jlh.name"
 proxmox_vmid: "204"
 proxmox_unprivileged: yes
-proxmox_mounts: '{"mp0":"/mnt/pve/acme-certs/,mp=/mnt/certs-root"}'
+proxmox_mounts: '{"mp0":"/mnt/pve/acme-certs/,mp=/etc/letsencrypt"}'
 proxmox_memory: 1024
 proxmox_description: ACME Certificate granter
 # Add extra bit to pve config to make snaps work inside container
