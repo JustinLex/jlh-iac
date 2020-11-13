@@ -37,6 +37,7 @@
 
 - name: Configure cloudflare plugin
   copy:
+    # The cloudflare API key needs to be defined in ./vars/main.yml so we can run certbot
     content: "dns_cloudflare_api_token = {{ cloudflare_api_key }}"
     dest: /root/cloudflare.ini
     owner: root
