@@ -54,3 +54,5 @@
       alts: '-d *.jlh.name'
     - domain: 'smultronfeet.nu'
       alts: ''
+
+# Certbot automatically adds its own systemd timer for renewal
