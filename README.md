@@ -1,7 +1,7 @@
 # JLH - Infrastructure as Code
-An Ansible playbook for provisioning and configuring my homelab infrastructure
+An Ansible playbook for provisioning and configuring my homelab infrastructure.
 
-The playbook forms a code representation fo infrastructure, allowing for it to be updated immutably though a text editor,
+The playbook forms a code representation of my infrastructure, allowing for it to be updated immutably though a text editor,
 and allowing for the entire infrastructure to be wiped and rebuilt whenever needed.
 
 This playbook runs from my base install of a proxmox host with an internal FreeNAS VM for storage, and then builds up

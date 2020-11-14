@@ -1,0 +1,8 @@
+# Allow full local access
+local all all trust
+
+{% for db in pgdb %}
+# Access to {{ db.name }} database for {{ db.client }}
+hostssl {{ db.name }} {{ db.name }} {{ db.client }} password
+
+{% endfor %}

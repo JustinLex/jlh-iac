@@ -1,8 +1,48 @@
 ---
 
-- name: Install postgres
+- name: Install postgres and ansible deps
   apt:
     name:
      - postgresql-12
      - postgresql-client-12
+     - python3-psycopg2
     state: present
+
+- name: Add postgres bin dir to system-wide $PATH.
+  copy:
+    dest: /etc/profile.d/postgres-path.sh
+    content: 'PATH=$PATH:/usr/lib/postgresql/12/bin'
+
+
+- name: Configure postgres
+  copy:
+    src: my_postgres.conf
+    dest: /etc/postgresql/12/main/conf.d/my_postgres.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart postgresql
+
+- name: Configure postgres permissions
+  template:
+    src: my_hba.conf.j2
+    dest: /etc/postgresql/12/main/pg_hba.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart postgresql
+
+
+- name: create postgres databases
+  community.general.postgresql_db:
+    name: "{{ item.name }}"
+    state: present
+  loop: "{{ pgdb }}"
+
+- name: Create postgres databases
+  community.general.postgresql_user:
+    db: "{{ item.name }}"
+    name: "{{ item.name }}"
+    password: "{{ item.password }}"
+    state: present
+  loop: "{{ pgdb }}"

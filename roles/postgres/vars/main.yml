@@ -1,0 +1,9 @@
+---
+# We're using security through obscurity here, because setting up something like LDAP/Kerberos or RADIUS is overkill.
+# databases are only accessible from my local network (might get VLANed in the future),
+# and databases are secured through hostname restrictions and a 30 char password that is unique to each database.
+# Only viable attack is someone reading this lol
+pgdb:
+  - name: nextcloud
+    password: 22tlb3v2ucae62rohrv0uivwb6q5ku
+    client: "{{ hostvars['swablu']['fqdn'] }}"
