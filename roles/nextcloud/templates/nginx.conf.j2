@@ -45,7 +45,7 @@ http {
         server_name {{ fqdn }};
 
         # set max upload size
-        client_max_body_size 102400M;
+        client_max_body_size 100G;
         fastcgi_buffers 64 4K;
 
         # Enable gzip but do not remove ETag headers

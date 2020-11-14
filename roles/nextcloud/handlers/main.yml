@@ -9,3 +9,8 @@
   systemd:
     name: "php{{ php_version }}-fpm"
     state: restarted
+
+- name: restart redis-server
+  systemd:
+    name: redis
+    state: restarted

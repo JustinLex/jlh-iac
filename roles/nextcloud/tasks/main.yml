@@ -84,6 +84,18 @@
     mode: 0644
   notify: restart php-fpm
 
+- name: configure redis
+  copy:
+    src: redis.conf
+    dest: "/etc/redis/redis.conf"
+    owner: redis
+    group: redis
+    mode: 0600
+  notify: restart redis-server
+
+- name: Restart services before continuing to config
+  meta: flush_handlers
+
 # apply some fixes from nextcloud playbook repo
 - name: Create symbolic link to /usr/bin/gs
   file:
@@ -118,6 +130,52 @@
     remote_src: true
     mode:  "o-rwx"
   when: nextcloud_archive.changed
+
+# Configure Nextcloud
+- name: check if config.php exists
+  stat:
+    path: '/mnt/nextcloud/www/nextcloud/config/config.php'
+  register: config_php
+
+- name: first setup nextcloud
+  become_user: "www-data"
+  become: yes
+  shell: >
+    php occ  maintenance:install
+    --database pgsql
+    --database-host "magneton.home.jlh.name"
+    --database-name nextcloud
+    --database-user nextcloud
+    --database-pass 22tlb3v2ucae62rohrv0uivwb6q5ku
+    --admin-user justin
+    --data-dir /mnt/nextcloud/data
+  args:
+    chdir: /mnt/nextcloud/www/nextcloud/
+  when: ( not config_php.stat.exists )
+  register: first_setup_nextcloud
+
+- name: set nextcloud domain config.php values
+  become_user: "www-data"
+  become: yes
+  shell: php occ config:system:set {{ item }}
+  args:
+    chdir: /mnt/nextcloud/www/nextcloud/
+  loop: "{{ nextcloud_config }}"
+  when: ( first_setup_nextcloud is changed ) or ( force_nextcloud_config|default(false) )
+
+- name: backup jobs, upgrade apps and database tuning
+  become_user: "www-data"
+  become: yes
+  shell: php occ {{ item }}
+  args:
+    chdir: /mnt/nextcloud/www/nextcloud/
+  loop:
+    - background:cron
+    - upgrade
+    - db:add-missing-indices
+    - db:convert-filecache-bigint
+    - app:update --all
+  when: ( first_setup_nextcloud is changed ) or ( force_nextcloud_config|default(false) )
 
 # Configure cron
 - name: Add nextcloud cronjob
