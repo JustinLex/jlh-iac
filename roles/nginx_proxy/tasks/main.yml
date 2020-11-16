@@ -19,7 +19,7 @@
     - server_name: "cloud.jlh.name"
       cert_name: "jlh.name"
       proxy_pass: "http://{{ hostvars['swablu']['fqdn'] }}/"
-      location_block: "./templates/proxy.j2"
+      location_block: "./templates/nextcloud_proxy.j2"
     - server_name: "pve.jlh.name"
       cert_name: "jlh.name"
       proxy_pass: "https://10.0.0.2:8006/"
