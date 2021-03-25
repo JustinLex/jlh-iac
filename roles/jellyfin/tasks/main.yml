@@ -1,0 +1,19 @@
+---
+
+- name: Add Jellyfin APT key
+  ansible.builtin.apt_key:
+    url: https://repo.jellyfin.org/jellyfin_team.gpg.key
+    state: present
+
+- name: Add Jellyfin repository
+  ansible.builtin.apt_repository:
+    repo: deb [arch=amd64] https://repo.jellyfin.org/ubuntu focal main
+    state: present
+
+
+- name: Install dependencies
+  apt:
+    name:
+      - apt-transport-https
+      - jellyfin
+    state: present

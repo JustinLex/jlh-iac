@@ -40,5 +40,10 @@
   roles:
     - certbot
 
+- name: Install and configure Jellyfin
+  hosts: mantine
+  roles:
+    - jellyfin
+
 # TODO: Set up a play that runs a specific role for each host, with the free strategy, allowing for parallelism
 

@@ -1,0 +1,9 @@
+hostname: "mantine"
+fqdn: "{{hostname}}.home.jlh.name"
+proxmox_vmid: "205"
+proxmox_unprivileged: yes
+proxmox_mounts: '{"mp0":"/mnt/pve/media,mp=/mnt/media"}'
+proxmox_memory: 4096
+proxmox_description: Jellyfin host
+
+ansible_host: "{{fqdn}}"

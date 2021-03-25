@@ -21,3 +21,10 @@
     path: /mnt/pve/acme-certs
     state: mounted
 
+- name: Mount media share
+  mount:
+    fstype: nfs
+    src: freenas.home.jlh.name:/mnt/vampire/media
+    path: /mnt/pve/media
+    state: mounted
+
