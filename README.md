@@ -12,10 +12,11 @@ Pokemon names are limited to the first 386 pokemon, as FireRed and Emerald are o
 
 ## Dependencies
 
-Install the latest git version of the community.general ansible collection in order to get a working proxmox API
+Install the latest git version of the community.general and community.postgresql ansible collections in order to get a working proxmox API and support for postgresql operations
 
 ```shell script
 git clone git@github.com:ansible-collections/community.general.git ~/.ansible/collections/ansible_collections/community/general
+git clone git@github.com:ansible-collections/community.postgresql.git ~/.ansible/collections/ansible_collections/community/postgresql
 ```
 
 ## Useful commands

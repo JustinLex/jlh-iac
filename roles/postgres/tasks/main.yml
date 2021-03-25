@@ -34,13 +34,13 @@
 
 
 - name: create postgres databases
-  community.general.postgresql_db:
+  community.postgresql.postgresql_db:
     name: "{{ item.name }}"
     state: present
   loop: "{{ pgdb }}"
 
 - name: Create postgres databases
-  community.general.postgresql_user:
+  community.postgresql.postgresql_user:
     db: "{{ item.name }}"
     name: "{{ item.name }}"
     password: "{{ item.password }}"
