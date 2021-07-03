@@ -3,22 +3,25 @@
 - name: Mount nextcloud share
   mount:
     fstype: nfs
-    src: freenas.home.jlh.name:/mnt/water/nextcloud
+    src: freenas.home.jlh.name:/mnt/solid/nextcloud
     path: /mnt/pve/nextcloud
+    opts: noauto,x-systemd.automount,x-systemd.mount-timeout=60,_netdev
     state: mounted
 
 - name: Mount database share
   mount:
     fstype: nfs
-    src: freenas.home.jlh.name:/mnt/water/database
+    src: freenas.home.jlh.name:/mnt/solid/database
     path: /mnt/pve/database
+    opts: noauto,x-systemd.automount,x-systemd.mount-timeout=60,_netdev
     state: mounted
 
 - name: Mount certificate share
   mount:
     fstype: nfs
-    src: freenas.home.jlh.name:/mnt/water/acme-certs
+    src: freenas.home.jlh.name:/mnt/solid/acme-certs
     path: /mnt/pve/acme-certs
+    opts: noauto,x-systemd.automount,x-systemd.mount-timeout=60,_netdev
     state: mounted
 
 - name: Mount media share
@@ -26,5 +29,5 @@
     fstype: nfs
     src: freenas.home.jlh.name:/mnt/vampire/media
     path: /mnt/pve/media
+    opts: noauto,x-systemd.automount,x-systemd.mount-timeout=60,_netdev
     state: mounted
-
