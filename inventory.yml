@@ -16,3 +16,6 @@ all:
         mantine:
       vars:
         ansible_user: root
+    virtual_machines:
+      hosts:
+        articuno:

@@ -10,6 +10,12 @@
   roles:
     - create_containers
 
+- name: Create VMs
+  hosts: virtual_machines
+  gather_facts: no
+  roles:
+    - create_vms
+
 - name: Install common tools and run common tasks
   hosts: containers
   roles:

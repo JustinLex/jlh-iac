@@ -1,0 +1,45 @@
+---
+
+- name: Create VMs
+  community.general.proxmox_kvm:
+    proxmox_default_behavior: no_defaults
+    api_host: "{{ pve_fqdn }}"
+    api_user: "{{ pve_user }}"
+    vmid: "{{ proxmox_vmid }}"
+    node: 'pve'
+    name: "{{ hostname }}"
+
+    ciuser: jlh
+    cipassword: password
+    sshkeys: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC+MxrP4M1yokRtDIKEmkmFqaRpGKoRYvtndSJGF0eRiLnhpJQNmIBB3DKLAyvigANFJNkQAsUeyXlWAsn8sx4z5Qowp2Ehtft/g4J0PIf/tXz6J7nSAnpwkJx/pNVBXanj4Haa2zzENO/JATIscd52Jh7/k4e14w/5zE+f7rwpsC/SVQTP5fz1G43lJoNIa7X+nw6pFyq8ajeJ/AwIgVeGn44g41M4uBhw4yYXhRE9QlnmuE/yZtwjaRnHnJO9Ojb36d/4bQijEc5mn9vMneI8/i5cw+uLoIH/grLEM4y4WBulyu6S+BK/Esc8nYeYTOoaIo5wIOI5fp4vwTcNDpom6ODfsXLC0mvhCsP0cknaPegct3wDQwtRynAFx8EjtqS53O5rCHzCP4tQIotcLpQZECjUbdWc3VfuoZVBBzfVu1o6UjV38HBbBHEt1qEXTBzroVx4sZFvDLa/jqsZb8f8KfNGQcIfmE5Hp3CoY6Sbtc0rVsGD0Y2R/U7U8ayXptjbczF+Kk/gIbOA7DaEtLNIU+q11z1o54un/suUpfvO+tAjFiMDOfYWaeuj9rMfEAKeTySki1vzuhtVdQDC6yfJ5RgH1S9++1djj84N2OIkwj7yYpayjW2jagqlQtnXg61W5VAFJ9QGnK6FLBpOL1UGhyQ4FAo+6ddD0Y8vGTFumw== jlh@citrus'
+
+    virtio:
+      virtio0: 'local-zfs:vm-109-disk-2,format=raw'
+
+    cores: 1
+
+    memory: 4096
+
+    nameservers:
+      - '1.1.1.1'
+      - '1.0.0.1'
+    net:
+      net0: 'virtio,bridge=vmbr0'
+    ipconfig:
+      ipconfig0: 'ip=dhcp'
+
+    autostart: yes
+    state: "present"
+    description: "{{ proxmox_description }}"
+  delegate_to: localhost
+
+- name: Start VMs
+  community.general.proxmox_kvm:
+    proxmox_default_behavior: no_defaults
+    api_host: "{{ pve_fqdn }}"
+    api_user: "{{ pve_user }}"
+    vmid: "{{ proxmox_vmid }}"
+    state: "started"
+  delegate_to: localhost
+
+    # TODO: Run task on inventory, with task delegated to localhost

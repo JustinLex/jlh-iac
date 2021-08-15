@@ -1,0 +1,6 @@
+hostname: "articuno"
+fqdn: "{{hostname}}.home.jlh.name"
+proxmox_vmid: "301"
+proxmox_description: Kubernetes node
+
+ansible_host: "{{fqdn}}"
