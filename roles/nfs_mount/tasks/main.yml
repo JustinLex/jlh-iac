@@ -31,3 +31,19 @@
     path: /mnt/pve/media
     opts: noauto,x-systemd.automount,x-systemd.mount-timeout=60,_netdev
     state: mounted
+
+- name: Mount solid disk share
+  mount:
+    fstype: nfs
+    src: freenas.home.jlh.name:/mnt/solid
+    path: /mnt/pve/solid
+    opts: noauto,x-systemd.automount,x-systemd.mount-timeout=60,_netdev
+    state: mounted
+
+- name: Mount backup share
+  mount:
+    fstype: nfs
+    src: freenas.home.jlh.name:/mnt/vampire/backup
+    path: /mnt/pve/backup
+    opts: noauto,x-systemd.automount,x-systemd.mount-timeout=60,_netdev
+    state: mounted

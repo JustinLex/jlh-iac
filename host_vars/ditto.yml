@@ -1,0 +1,9 @@
+hostname: "ditto"
+fqdn: "{{hostname}}.home.jlh.name"
+proxmox_vmid: "200"
+proxmox_unprivileged: no
+proxmox_mounts: '{"mp0":"/mnt/pve/solid,mp=/mnt/solid","mp1":"/mnt/pve/backup,mp=/mnt/backup"}'
+proxmox_memory: 2048
+proxmox_description: Backup manager
+
+ansible_host: "{{fqdn}}"

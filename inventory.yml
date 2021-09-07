@@ -14,6 +14,7 @@ all:
         shuckle:
         jirachi:
         mantine:
+        ditto:
       vars:
         ansible_user: root
     virtual_machines:

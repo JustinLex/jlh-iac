@@ -51,5 +51,10 @@
   roles:
     - jellyfin
 
+- name: Install and configure backups
+  hosts: ditto
+  roles:
+    - backup
+
 # TODO: Set up a play that runs a specific role for each host, with the free strategy, allowing for parallelism
 
