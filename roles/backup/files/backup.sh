@@ -4,6 +4,10 @@
 # backup to local
 
 # copy to remote
+# https://github.com/gilbertchen/duplicacy/wiki/copy
+
+
+# Notes:
 
 # encryption password is stored in local config
 # https://github.com/gilbertchen/duplicacy/wiki/Managing-Passwords

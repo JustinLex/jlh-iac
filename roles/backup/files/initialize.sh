@@ -3,13 +3,14 @@
 
 # init local
 # https://github.com/gilbertchen/duplicacy/wiki/init
-duplicacy init -background -encrypt local /mnt/backup/duplicacy > "/mnt/backup/logs/init-$(date +"%Y-%m-%dZ%T")"
+duplicacy init -background -encrypt -storage-name local solid /mnt/backup/duplicacy > "/mnt/backup/logs/init-$(date +"%Y-%m-%dZ%T")"
 
 # add remote
 # https://github.com/gilbertchen/duplicacy/wiki/add
-duplicacy add -background -encrypt remote
+duplicacy add -background -encrypt -storage-name remote solid {URL}
 
 
+# Notes:
 # encryption password is stored in local config
 # https://github.com/gilbertchen/duplicacy/wiki/Managing-Passwords
 
