@@ -1,7 +1,7 @@
 ---
 
 - name: Mount nextcloud share
-  mount:
+  ansible.posix.mount:
     fstype: nfs
     src: freenas.home.jlh.name:/mnt/solid/nextcloud
     path: /mnt/pve/nextcloud
@@ -9,7 +9,7 @@
     state: mounted
 
 - name: Mount database share
-  mount:
+  ansible.posix.mount:
     fstype: nfs
     src: freenas.home.jlh.name:/mnt/solid/database
     path: /mnt/pve/database
@@ -17,7 +17,7 @@
     state: mounted
 
 - name: Mount certificate share
-  mount:
+  ansible.posix.mount:
     fstype: nfs
     src: freenas.home.jlh.name:/mnt/solid/acme-certs
     path: /mnt/pve/acme-certs
@@ -25,7 +25,7 @@
     state: mounted
 
 - name: Mount media share
-  mount:
+  ansible.posix.mount:
     fstype: nfs
     src: freenas.home.jlh.name:/mnt/vampire/media
     path: /mnt/pve/media
@@ -33,15 +33,15 @@
     state: mounted
 
 - name: Mount solid disk share
-  mount:
+  ansible.posix.mount:
     fstype: nfs
     src: freenas.home.jlh.name:/mnt/solid
     path: /mnt/pve/solid
-    opts: noauto,x-systemd.automount,x-systemd.mount-timeout=60,_netdev
+    opts: ro,noauto,x-systemd.automount,x-systemd.mount-timeout=60,_netdev
     state: mounted
 
 - name: Mount backup share
-  mount:
+  ansible.posix.mount:
     fstype: nfs
     src: freenas.home.jlh.name:/mnt/vampire/backup
     path: /mnt/pve/backup
