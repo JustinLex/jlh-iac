@@ -1,4 +1,10 @@
-# install duplicacy
-# create log folder
+---
+- name: Install Duplicacy
+   ansible.builtin.get_url:
+     url: https://github.com/gilbertchen/duplicacy/releases/download/v2.7.2/duplicacy_linux_x64_2.7.2
+     dest: /usr/local/bin/duplicacy
+     mode: '755'
+
+# create duplicacy and log folders
 # init repos
 # set backup timer
