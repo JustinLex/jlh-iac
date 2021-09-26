@@ -19,6 +19,17 @@ git clone git@github.com:ansible-collections/community.general.git ~/.ansible/co
 git clone git@github.com:ansible-collections/community.postgresql.git ~/.ansible/collections/ansible_collections/community/postgresql
 ```
 
+Install ansible.posix collection
+```shell script
+ansible-galaxy collection install ansible.posix
+```
+
+Install `proxmoxer` Python library
+```shell script
+pip install proxmoxer
+```
+
+
 ## Useful commands
 ```shell script
 ansible -i inventory.yml swablu -m ping
