@@ -1,10 +1,33 @@
 ---
 - name: Install Duplicacy
-   ansible.builtin.get_url:
-     url: https://github.com/gilbertchen/duplicacy/releases/download/v2.7.2/duplicacy_linux_x64_2.7.2
-     dest: /usr/local/bin/duplicacy
-     mode: '755'
+  ansible.builtin.get_url:
+    url: https://github.com/gilbertchen/duplicacy/releases/download/v2.7.2/duplicacy_linux_x64_2.7.2
+    dest: /usr/local/bin/duplicacy
+    mode: '755'
 
-# create duplicacy and log folders
-# init repos
-# set backup timer
+- name: Ensure Duplicacy folder is created
+  ansible.builtin.file:
+    path: /mnt/backup/duplicacy
+    state: directory
+
+- name: Ensure logs folder is created
+  ansible.builtin.file:
+    path: /mnt/backup/log
+    state: directory
+
+- name: Install Duplicacy scripts
+  ansible.builtin.copy:
+    src: "{{item}}"
+    dest: "/root/{{item}}"
+    mode: '755'
+  loop:
+    - 'backup.sh'
+    - 'initialize.sh'
+    - 'set_password_var.py'
+
+- name: Init Duplicacy repos
+  ansible.builtin.shell:
+    cmd: /root/initialize.sh
+
+# - name: Install backup script and set timer
+
