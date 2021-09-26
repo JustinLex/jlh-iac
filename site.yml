@@ -46,10 +46,10 @@
   roles:
     - certbot
 
-- name: Install and configure Jellyfin
-  hosts: mantine
-  roles:
-    - jellyfin
+#- name: Install and configure Jellyfin
+#  hosts: mantine
+#  roles:
+#    - jellyfin
 
 - name: Install and configure backups
   hosts: ditto

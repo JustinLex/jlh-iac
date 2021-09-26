@@ -13,7 +13,7 @@ all:
         hitmonlee:
         shuckle:
         jirachi:
-        mantine:
+#        mantine:
         ditto:
       vars:
         ansible_user: root
