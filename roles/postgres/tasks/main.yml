@@ -38,6 +38,8 @@
     name: "{{ item.name }}"
     state: present
   loop: "{{ pgdb }}"
+  become: true
+  become_user: postgres
 
 - name: Create postgres databases
   community.postgresql.postgresql_user:
@@ -46,3 +48,5 @@
     password: "{{ item.password }}"
     state: present
   loop: "{{ pgdb }}"
+  become: true
+  become_user: postgres
