@@ -9,7 +9,7 @@
     node: 'pve'
     hostname: "{{ hostname }}"
     unprivileged: "{{ proxmox_unprivileged }}"
-    pubkey: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC+MxrP4M1yokRtDIKEmkmFqaRpGKoRYvtndSJGF0eRiLnhpJQNmIBB3DKLAyvigANFJNkQAsUeyXlWAsn8sx4z5Qowp2Ehtft/g4J0PIf/tXz6J7nSAnpwkJx/pNVBXanj4Haa2zzENO/JATIscd52Jh7/k4e14w/5zE+f7rwpsC/SVQTP5fz1G43lJoNIa7X+nw6pFyq8ajeJ/AwIgVeGn44g41M4uBhw4yYXhRE9QlnmuE/yZtwjaRnHnJO9Ojb36d/4bQijEc5mn9vMneI8/i5cw+uLoIH/grLEM4y4WBulyu6S+BK/Esc8nYeYTOoaIo5wIOI5fp4vwTcNDpom6ODfsXLC0mvhCsP0cknaPegct3wDQwtRynAFx8EjtqS53O5rCHzCP4tQIotcLpQZECjUbdWc3VfuoZVBBzfVu1o6UjV38HBbBHEt1qEXTBzroVx4sZFvDLa/jqsZb8f8KfNGQcIfmE5Hp3CoY6Sbtc0rVsGD0Y2R/U7U8ayXptjbczF+Kk/gIbOA7DaEtLNIU+q11z1o54un/suUpfvO+tAjFiMDOfYWaeuj9rMfEAKeTySki1vzuhtVdQDC6yfJ5RgH1S9++1djj84N2OIkwj7yYpayjW2jagqlQtnXg61W5VAFJ9QGnK6FLBpOL1UGhyQ4FAo+6ddD0Y8vGTFumw== jlh@citrus'
+    pubkey: 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL3SgUXbiLoKcBll6u10EEQ6hThrowtDxIkusD9oJpJO jlh@charmander'
 
     ostemplate: "local:vztmpl/ubuntu-20.04-standard_20.04-1_amd64.tar.gz"
 
@@ -40,6 +40,8 @@
       known_hosts:
         name: "{{ fqdn }}"
         state: absent
+    - name: Flush Local systemd-resolved DNS cache
+      ansible.builtin.shell: sleep 5 && resolvectl flush-caches
     - name: Start container
       community.general.proxmox:
         proxmox_default_behavior: no_defaults
