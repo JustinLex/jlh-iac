@@ -1,2 +1,5 @@
 # Dont check-in cloudflare API key
 roles/certbot/vars/main.yml
+
+# Hide backup filters
+roles/backup/files/filters

@@ -23,11 +23,21 @@
   loop:
     - 'backup.sh'
     - 'initialize.sh'
-    - 'set_password_var.py'
+    - 'set_password_vars.py'
+
+- name: Check if duplicacy has been initialized
+  ansible.builtin.stat:
+    path: /root/.duplicacy/preferences
+  register: duplicacy_prefs
 
 - name: Init Duplicacy repos
+  when: not duplicacy_prefs.stat.exists
   ansible.builtin.shell:
     cmd: /root/initialize.sh
 
-# - name: Install backup script and set timer
+- name: Set backup filters
+  ansible.builtin.copy:
+    src: filters
+    dest: /root/.duplicacy/filters
 
+# - name: Install backup script and set timer
