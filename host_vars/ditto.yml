@@ -1,8 +1,12 @@
 hostname: "ditto"
 fqdn: "{{hostname}}.home.jlh.name"
-proxmox_vmid: "200"
+proxmox_vmid: "206"
 proxmox_unprivileged: no
-proxmox_mounts: '{"mp0":"/mnt/pve/solid,mp=/mnt/solid","mp1":"/mnt/pve/backup,mp=/mnt/backup"}'
+proxmox_mounts:
+  mp0: "/mnt/pve/water,mp=/mnt/backup"
+  mp1: "/mnt/pve/solid/acme-certs,mp=/mnt/solid/acme-certs"
+  mp2: "/mnt/pve/solid/database,mp=/mnt/solid/database"
+  mp3: "/mnt/pve/solid/nextcloud,mp=/mnt/solid/nextcloud"
 proxmox_memory: 2048
 proxmox_description: Backup manager
 
