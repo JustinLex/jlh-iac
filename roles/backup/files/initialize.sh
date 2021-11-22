@@ -5,11 +5,11 @@ source /mnt/backup/passwords_rc
 
 # init local
 # https://github.com/gilbertchen/duplicacy/wiki/init
-duplicacy init -background -log -encrypt -storage-name local solid /mnt/backup/duplicacy > "/mnt/backup/logs/init-$(date +"%Y-%m-%dZ%T")" 2>&1
+duplicacy -background -log init -encrypt -repository /mnt/solid -storage-name local solid /mnt/backup/duplicacy > "/mnt/backup/log/init-$(date +"%Y-%m-%dZ%T")" 2>&1
 
 # add remote
 # https://github.com/gilbertchen/duplicacy/wiki/add
-duplicacy add -background -log -encrypt -storage-name remote solid b2://jlh-ditto > "/mnt/backup/logs/add-$(date +"%Y-%m-%dZ%T")" 2>&1
+duplicacy -background -log add -encrypt -copy local -bit-identical -repository /mnt/solid remote solid b2://jlh-ditto > "/mnt/backup/log/add-$(date +"%Y-%m-%dZ%T")" 2>&1
 
 
 # Notes:
