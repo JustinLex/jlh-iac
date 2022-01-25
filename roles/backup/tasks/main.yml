@@ -40,4 +40,8 @@
     src: filters
     dest: /root/.duplicacy/filters
 
-# - name: Install backup script and set timer
+- name: Install h5b cronjob key
+  ansible.posix.authorized_key:
+    user: root
+    key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINe/sP5mrb0e24rdlcidMHC8Kttr8SGJ2zc5jvNU5xid jlh@charmander"
+    state: present
