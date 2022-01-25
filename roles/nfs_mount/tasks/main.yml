@@ -35,6 +35,7 @@
     - nextcloud
     - acme-certs
     - database
+    - k8s
 
 - name: Mount backup share
   ansible.posix.mount:
