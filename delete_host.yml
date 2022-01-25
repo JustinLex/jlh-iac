@@ -15,14 +15,14 @@
         - name: stop container
           community.general.proxmox:
             proxmox_default_behavior: no_defaults
-            api_host: 'shodan.home.jlh.name'
+            api_host: 'pve.home.jlh.name'
             api_user: 'root@pam'
             vmid: "{{ vmid }}"
             state: "stopped"
         - name: delete container
           community.general.proxmox:
             proxmox_default_behavior: no_defaults
-            api_host: 'shodan.home.jlh.name'
+            api_host: 'pve.home.jlh.name'
             api_user: 'root@pam'
             vmid: "{{ vmid }}"
             state: "absent"

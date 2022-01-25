@@ -3,7 +3,7 @@ all:
     proxmox_nodes:
       hosts:
         shodan:
-          ansible_host: shodan.home.jlh.name
+          ansible_host: pve.home.jlh.name
       vars:
         ansible_user: root
     containers:
